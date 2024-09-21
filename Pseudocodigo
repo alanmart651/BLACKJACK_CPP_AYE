@@ -1,0 +1,82 @@
+Algoritmo: BlackJack
+
+Definición de variables:
+    Entero: T_jugador, T_computadora, carta, opc, juegoTerminado
+    T_jugador = 0
+    T_computadora = 0
+    juegoTerminado = 0
+
+1. Inicio
+2. Escribir "------BlackJack------"
+
+    // Cartas iniciales del jugador
+3. Para i = 1 Hasta 2 Hacer
+        carta = draw.card()
+        T_jugador = T_jugador + carta
+        Escribir "Recibiste una carta de valor: ", carta
+4. FinPara
+5. Escribir "Tu total inicial es: ", T_jugador
+
+    // Cartas iniciales de la computadora
+6. Para i = 1 Hasta 2 Hacer
+        carta = draw.card()
+        T_computadora = T_computadora + carta
+7. FinPara
+8. Escribir "La computadora tiene sus cartas ocultas."
+
+    // Estructura del juego
+9. Mientras juegoTerminado = 0 Hacer
+    Escribir "¿Quieres otra carta? (1: Sí, 0: No):"
+    Leer opc
+
+    Segun opc Hacer
+        1:
+            // Jugador toma otra carta
+            carta = draw.card()
+            T_jugador = T_jugador + carta
+            Escribir "Recibiste una carta de valor: ", carta
+            Escribir "Tu total es: ", T_jugador
+
+            // Verificar si el jugador se pasa de 21
+            Si T_jugador > 21 Entonces
+                Escribir "Pasaste los 21 puntos. ¡¡Perdiste!!"
+                Escribir "La computadora ganó la partida con: ", T_computadora, " puntos"
+                juegoTerminado = 1
+            FinSi
+    FinSegun
+
+    // Turno de la computadora (toma una carta si tiene menos de 17)
+    Si T_computadora < 17 Entonces
+        carta = draw.card()
+        T_computadora = T_computadora + carta
+    FinSi
+
+    // Verificar si la computadora se pasa de 21
+    Si T_computadora > 21 Entonces
+        Escribir "¡Ganaste la partida con: ", T_jugador, " puntos!"
+        Escribir "La computadora se pasó con: ", T_computadora, " puntos"
+        juegoTerminado = 1
+    FinSi
+
+    // Si el jugador decide no tomar más cartas
+    Si opc = 0 Entonces
+        juegoTerminado = 1
+    FinSi
+10. FinMientras
+
+    // Resultado final si ninguno se pasó de 21
+11. Si T_jugador <= 21 Y T_computadora <= 21 Entonces
+    Si T_jugador > T_computadora Entonces
+        Escribir "¡Ganaste la partida con: ", T_jugador, " puntos!"
+        Escribir "La computadora tiene: ", T_computadora, " puntos"
+    SiNo
+        Si T_computadora > T_jugador Entonces
+            Escribir "La computadora ganó la partida con: ", T_computadora, " puntos"
+            Escribir "Tú tienes: ", T_jugador, " puntos"
+        SiNo
+            Escribir "Es un empate. Ambos tienen: ", T_jugador, " puntos"
+        FinSi
+    FinSi
+12. FinSi
+
+13. FinAlgoritmo
